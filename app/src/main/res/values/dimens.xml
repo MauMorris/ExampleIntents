@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pad">16dp</dimen>
+    <dimen name="button">48dp</dimen>
+    <dimen name="t_size">16sp</dimen>
+</resources>

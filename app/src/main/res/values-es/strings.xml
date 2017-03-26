@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">JavaRun</string>
+    <string name="thank_you">Gracias</string>
+
+    <string name="toppings">Ingredientes</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="name">Nombre</string>
+    <string name="order">Orden</string>
+
+    <string name="quantity">Cantidad</string>
+    <string name="w_cream">Crema batida</string>
+
+    <string name="order_summary_chocolate">Agregas chocolate? <xliff:g id="add_c" example="true">%b</xliff:g></string>
+    <string name="order_summary_w_cream">Agregas crema batida? <xliff:g id="name" example="true">%b</xliff:g></string>
+
+    <string name="two">2</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+
+    <string name="order_summary_name">Nombre: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+    <string name="order_summary_price">Total: <xliff:g id="name" example="$2">%s</xliff:g></string>
+    <string name="order_summary_quantity">Cantidad: <xliff:g id="quant" example="0">%d</xliff:g></string>
+    <string name="order_summary_message">Solo Java Orden por: <xliff:g id="jjob" example="Felix">%s</xliff:g></string>
+
+    <string name="toast_less">No puedes elegir menos de 1 taza de café</string>
+    <string name="toast_plus">No puedes elegir mas de 100 tazas de café</string>
+</resources>

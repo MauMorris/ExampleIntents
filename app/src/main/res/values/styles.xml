@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="HeaderTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/button</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/t_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CheckBoxStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/pad</item>
+    </style>
+</resources>
