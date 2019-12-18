@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.icu.text.NumberFormat;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckBox chocolateCheckBox;
     private EditText nameEditText;
 
-    private Integer quantity;
+    private Integer quantity = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button moreButton = findViewById(R.id.more_button);
         Button lessButton = findViewById(R.id.less_button);
         Button orderButton = findViewById(R.id.order_button);
+        Button webpageButton = findViewById(R.id.website_button);
+        Button locationButton = findViewById(R.id.location_button);
+        Button shareButton = findViewById(R.id.share_button);
 
         moreButton.setOnClickListener(this);
         lessButton.setOnClickListener(this);
         orderButton.setOnClickListener(this);
+        webpageButton.setOnClickListener(this);
+        locationButton.setOnClickListener(this);
+        shareButton.setOnClickListener(this);
 
         quantity = Integer.parseInt(quantityTextView.getText().toString());
     }
@@ -58,6 +65,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.order_button:
                 order();
+                break;
+            case R.id.website_button:
+                String urlAsString = "http://www.udacity.com";
+                openWebPage(urlAsString);
+                break;
+            case R.id.location_button:
+                String addressString = "1600 Amphitheatre Parkway, CA";
+                showMap(addressString);
+                break;
+            case R.id.share_button:
+                String textTobeShare = "I want to share this";
+                shareText(textTobeShare);
                 break;
             default:
                 break;
@@ -90,28 +109,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void order(){
         String name_text = nameEditText.getText().toString();
-
         boolean hasWhippedCream = whippedCheckBox.isChecked();
         boolean hasChocolate = chocolateCheckBox.isChecked();
 
-        int price = calculatePrice(hasWhippedCream, hasChocolate);
-        String priceMessage = createOrderSummary(name_text, price, hasWhippedCream, hasChocolate);
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//        i.setData(Uri.parse("geo:47.6, -122.3"));
-        Intent i = new Intent(Intent.ACTION_SENDTO);
+        int price = calculatePrice(hasWhippedCream, hasChocolate, quantity);
 
-        i.setData(Uri.parse("mailto:"));
+        String priceMessage = createOrderSummary(name_text, hasWhippedCream, hasChocolate,
+                quantity, price);
 
-//        i.putExtra(Intent.EXTRA_EMAIL, address);
-        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.order_summary_message, name_text));
-        i.putExtra(Intent.EXTRA_TEXT, priceMessage);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
 
-        if(i.resolveActivity(getPackageManager()) != null){
-            startActivity(i);
-        }
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.order_summary_message, name_text));
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+
+        startMyActivities(intent);
     }
 
-    private int calculatePrice(boolean addWhippedCream, boolean addChocolate){
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate, int quantity){
         int basePrice = 5;
 
         if(addWhippedCream){
@@ -125,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    private String createOrderSummary(String name, int price,
-                                        boolean addWhippedCream, boolean addChocolate){
+    private String createOrderSummary(String name, boolean addWhippedCream,
+                                      boolean addChocolate, int quantity, int price){
         String priceMessage = getString(R.string.order_summary_name, name);
 
         priceMessage += "\n" + getString(R.string.order_summary_w_cream, addWhippedCream);
@@ -137,5 +152,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         priceMessage += "\n" + getString(R.string.thank_you);
 
         return priceMessage;
+    }
+
+    private void startMyActivities(Intent intent){
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    private void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        startMyActivities(intent);
+    }
+
+    private void showMap(String addressString) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo")
+                .path("0,0")
+                .appendQueryParameter("q", addressString);
+
+        Uri addressUri = builder.build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(addressUri);
+
+        startMyActivities(intent);
+    }
+
+    private void shareText(String text){
+        String mimeType = "text/plain";
+        String titleForWindow = "This is it";
+
+        ShareCompat.IntentBuilder
+                .from(this)
+                .setChooserTitle(titleForWindow)
+                .setType(mimeType)
+                .setText(text)
+                .startChooser();
     }
 }

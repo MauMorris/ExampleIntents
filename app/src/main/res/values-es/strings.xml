@@ -25,4 +25,7 @@
 
     <string name="toast_less">No puedes elegir menos de 1 taza de café</string>
     <string name="toast_plus">No puedes elegir mas de 100 tazas de café</string>
+    <string name="open_website">sitio web</string>
+    <string name="open_location">ubicación</string>
+    <string name="share_text">compartir</string>
 </resources>

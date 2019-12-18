@@ -97,5 +97,23 @@
             android:layout_height="wrap_content"
             android:text="@string/order" />
 
+        <Button
+            android:id="@+id/website_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_website" />
+
+        <Button
+            android:id="@+id/location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_location" />
+
+        <Button
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share_text" />
+
     </LinearLayout>
 </ScrollView>

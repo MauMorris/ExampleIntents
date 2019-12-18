@@ -27,4 +27,7 @@
     <string name="order_summary_message">JustJava order by: <xliff:g id="jjob" example="Felix">%s</xliff:g></string>
 
     <string name="thank_you">Thank you!</string>
+    <string name="open_website">website</string>
+    <string name="open_location">location</string>
+    <string name="share_text">share</string>
 </resources>
