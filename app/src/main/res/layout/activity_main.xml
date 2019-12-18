@@ -29,8 +29,8 @@
             android:orientation="horizontal">
 
             <CheckBox
-                style="@style/CheckBoxStyle"
-                android:id="@+id/whipped_check_box" />
+                android:id="@+id/whipped_check_box"
+                style="@style/CheckBoxStyle" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,8 +47,8 @@
             android:orientation="horizontal">
 
             <CheckBox
-                style="@style/CheckBoxStyle"
-                android:id="@+id/chocolate_check_box" />
+                android:id="@+id/chocolate_check_box"
+                style="@style/CheckBoxStyle" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,34 +69,33 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/less_button"
                 android:layout_width="@dimen/button"
                 android:layout_height="wrap_content"
-                android:onClick="less"
                 android:text="@string/minus" />
 
             <TextView
                 android:id="@+id/quantity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/pad"
                 android:layout_marginStart="@dimen/pad"
+                android:layout_marginEnd="@dimen/pad"
                 android:text="@string/two"
                 android:textColor="@android:color/black" />
 
             <Button
+                android:id="@+id/more_button"
                 android:layout_width="@dimen/button"
                 android:layout_height="wrap_content"
-                android:onClick="more"
                 android:text="@string/plus" />
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/order_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="order"
             android:text="@string/order" />
 
     </LinearLayout>
-
 </ScrollView>

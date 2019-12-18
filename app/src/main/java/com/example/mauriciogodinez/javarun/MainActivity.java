@@ -8,37 +8,63 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView quantity_text;
+    private TextView quantityTextView;
 
-    CheckBox checkW;
-    CheckBox checkC;
+    private CheckBox whippedCheckBox;
+    private CheckBox chocolateCheckBox;
+    private EditText nameEditText;
 
-    EditText name;
-    Integer quantity;
+    private Integer quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        quantity_text = (TextView) findViewById(R.id.quantity_text_view);
+        quantityTextView = findViewById(R.id.quantity_text_view);
+        whippedCheckBox = findViewById(R.id.whipped_check_box);
+        chocolateCheckBox = findViewById(R.id.chocolate_check_box);
+        nameEditText = findViewById(R.id.name_field);
 
-        checkW = (CheckBox) findViewById(R.id.whipped_check_box);
-        checkC = (CheckBox) findViewById(R.id.chocolate_check_box);
+        Button moreButton = findViewById(R.id.more_button);
+        Button lessButton = findViewById(R.id.less_button);
+        Button orderButton = findViewById(R.id.order_button);
 
-        name = (EditText) findViewById(R.id.name_field);
-        quantity = Integer.parseInt(quantity_text.getText().toString());
+        moreButton.setOnClickListener(this);
+        lessButton.setOnClickListener(this);
+        orderButton.setOnClickListener(this);
 
+        quantity = Integer.parseInt(quantityTextView.getText().toString());
     }
 
-    public void more(View view){
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        switch (id){
+            case R.id.more_button:
+                more();
+                break;
+            case R.id.less_button:
+                less();
+                break;
+            case R.id.order_button:
+                order();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void more(){
         if (quantity == 100){
             Toast.makeText(this, getString(R.string.toast_plus), Toast.LENGTH_SHORT).show();
             return;
@@ -48,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         displayQuantity(quantity);
     }
 
-    public void less(View view){
+    private void less(){
         if (quantity == 1){
             Toast.makeText(this, getString(R.string.toast_less), Toast.LENGTH_SHORT).show();
             return;
@@ -58,14 +84,15 @@ public class MainActivity extends AppCompatActivity {
         displayQuantity(quantity);
     }
 
-    public void displayQuantity(Integer q){
-        quantity_text.setText(q.toString());
+    private void displayQuantity(Integer q){
+        quantityTextView.setText(q.toString());
     }
 
-    public void order(View view){
-        String name_text = name.getText().toString();
-        boolean hasWhippedCream = checkW.isChecked();
-        boolean hasChocolate = checkC.isChecked();
+    private void order(){
+        String name_text = nameEditText.getText().toString();
+
+        boolean hasWhippedCream = whippedCheckBox.isChecked();
+        boolean hasChocolate = chocolateCheckBox.isChecked();
 
         int price = calculatePrice(hasWhippedCream, hasChocolate);
         String priceMessage = createOrderSummary(name_text, price, hasWhippedCream, hasChocolate);
@@ -84,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected int calculatePrice(boolean addWhippedCream, boolean addChocolate){
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate){
         int basePrice = 5;
 
         if(addWhippedCream){
@@ -98,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    protected String createOrderSummary(String name, int price,
+    private String createOrderSummary(String name, int price,
                                         boolean addWhippedCream, boolean addChocolate){
         String priceMessage = getString(R.string.order_summary_name, name);
 
