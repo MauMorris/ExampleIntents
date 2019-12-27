@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Integer quantity = 2;
 
+    public static final String QUANTITY_EXTRA = "quantity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shareButton.setOnClickListener(this);
 
         quantity = Integer.parseInt(quantityTextView.getText().toString());
+
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(QUANTITY_EXTRA)){
+                quantity = savedInstanceState.getInt(QUANTITY_EXTRA);
+                displayQuantity(quantity);
+            }
+        }
     }
 
     @Override
@@ -81,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(quantity > 0)
+            outState.putInt(QUANTITY_EXTRA, quantity);
     }
 
     private void more(){
